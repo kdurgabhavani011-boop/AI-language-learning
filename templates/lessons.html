@@ -396,7 +396,7 @@
                 
                 {% if item.progress %}
                 <div class="lesson-progress-bar">
-                    <div class="lesson-progress-fill" style="width: {% if item.progress.status == 'completed' %}100%{% else %}50%{% endif %}"></div>
+                    <div class="lesson-progress-fill" style="width: '{{% if item.progress.status == 'completed' %} 100%{% else %}50%{% endif %}}' "></div>
                 </div>
                 {% endif %}
                 
@@ -415,7 +415,7 @@
                         {% endif %}
                     {% else %}
                         <span class="lesson-status-text">Not started</span>
-                        <a href="#" class="lesson-action btn-primary" onclick="startLesson({{ item.lesson.id }})">Start</a>
+                        <a href="#" class="lesson-action btn-primary" onclick="startLesson('{{ item.lesson.id }}')">Start</a>
                     {% endif %}
                 </div>
             </div>
