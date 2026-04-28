@@ -1,0 +1,532 @@
+/* LinguaAI - Responsive Styles */
+
+/* Large Desktop */
+@media (max-width: 1400px) {
+    .container {
+        max-width: 1200px;
+    }
+}
+
+/* Desktop */
+@media (max-width: 1200px) {
+    .container {
+        max-width: 992px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Tablet Landscape */
+@media (max-width: 1024px) {
+    .container {
+        max-width: 768px;
+    }
+    
+    /* Navigation */
+    .navbar {
+        padding: 16px 0;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background: var(--surface);
+        padding: 80px 24px 24px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-toggle {
+        display: flex;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .nav-link {
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+    }
+    
+    .nav-link:hover {
+        background: rgba(99, 102, 241, 0.1);
+    }
+    
+    .nav-auth {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 24px;
+    }
+    
+    .nav-auth .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Grid */
+    .grid-4, .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Dashboard */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .welcome-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    /* Practice */
+    .practice-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .chat-messages {
+        height: 400px;
+    }
+    
+    /* Profile */
+    .profile-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tablet Portrait */
+@media (max-width: 768px) {
+    .container {
+        max-width: 576px;
+        padding: 0 16px;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    h2 {
+        font-size: 1.75rem;
+    }
+    
+    h3 {
+        font-size: 1.25rem;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+    }
+    
+    .btn-lg {
+        padding: 14px 24px;
+        font-size: 0.9375rem;
+    }
+    
+    /* Cards */
+    .card {
+        padding: 20px;
+        border-radius: var(--radius-lg);
+    }
+    
+    /* Grid */
+    .grid-4, .grid-3, .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Stats */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-card {
+        padding: 16px;
+    }
+    
+    .stat-icon {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+    
+    .stat-info h3 {
+        font-size: 1.25rem;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 100px 0 60px;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+    }
+    
+    .hero-buttons .btn {
+        width: 100%;
+    }
+    
+    .hero-stats {
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+    
+    .hero-stat {
+        flex: 1;
+        min-width: 100px;
+    }
+    
+    .hero-stat-number {
+        font-size: 1.75rem;
+    }
+    
+    /* Features */
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .feature-card {
+        padding: 24px;
+    }
+    
+    /* Languages */
+    .languages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Testimonials */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* CTA */
+    .cta-box {
+        padding: 40px 24px;
+    }
+    
+    .cta h2 {
+        font-size: 1.75rem;
+    }
+    
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+    
+    .footer-brand {
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    .footer-links {
+        text-align: center;
+    }
+    
+    /* Auth Pages */
+    .auth-card {
+        padding: 32px 24px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Lessons */
+    .lessons-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .language-tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 12px;
+    }
+    
+    .lang-tab {
+        flex-shrink: 0;
+    }
+    
+    /* Chat */
+    .chat-header {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+    
+    .chat-header-right {
+        width: 100%;
+    }
+    
+    .language-selector {
+        width: 100%;
+    }
+    
+    .chat-messages {
+        height: 350px;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+    
+    /* Profile */
+    .profile-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .achievements-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    /* Daily Goal */
+    .progress-ring-container {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .goal-tasks {
+        width: 100%;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .container {
+        max-width: 100%;
+    }
+    
+    /* Typography */
+    h1 {
+        font-size: 1.75rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 12px 16px;
+    }
+    
+    .btn-lg {
+        padding: 14px 20px;
+    }
+    
+    /* Stats */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Hero Stats */
+    .hero-stat {
+        min-width: 80px;
+    }
+    
+    .hero-stat-number {
+        font-size: 1.5rem;
+    }
+    
+    /* Languages */
+    .languages-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Feature Cards */
+    .feature-card {
+        padding: 20px;
+    }
+    
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+    
+    /* Testimonials */
+    .testimonial-card {
+        padding: 20px;
+    }
+    
+    .testimonial-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    /* Chat */
+    .chat-messages {
+        height: 300px;
+        padding: 16px;
+    }
+    
+    .message-content {
+        padding: 12px 14px;
+    }
+    
+    .chat-input-wrapper {
+        padding: 8px 8px 8px 12px;
+    }
+    
+    .chat-input {
+        font-size: 0.875rem;
+    }
+    
+    /* Profile */
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .profile-avatar-placeholder {
+        font-size: 2.5rem;
+    }
+    
+    .profile-name {
+        font-size: 1.25rem;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .achievement-badge {
+        padding: 8px;
+    }
+    
+    .achievement-badge i {
+        font-size: 1.25rem;
+    }
+    
+    /* Settings */
+    .settings-card {
+        padding: 24px 16px;
+    }
+    
+    .form-input {
+        padding: 12px 14px;
+    }
+    
+    /* Footer */
+    .footer-bottom {
+        text-align: center;
+    }
+}
+
+/* Extra Small */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .btn {
+        padding: 10px 14px;
+        font-size: 0.8125rem;
+    }
+    
+    .stat-info h3 {
+        font-size: 1rem;
+    }
+    
+    .hero-stat-number {
+        font-size: 1.25rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .footer,
+    .btn,
+    .chat-input-area {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .container {
+        max-width: 100%;
+    }
+    
+    .card {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --border: rgba(255, 255, 255, 0.3);
+        --text-secondary: #cbd5e1;
+    }
+    
+    .btn-primary {
+        border: 2px solid white;
+    }
+    
+    .card {
+        border-width: 2px;
+    }
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        padding: 14px 24px;
+    }
+    
+    .nav-link {
+        padding: 16px;
+    }
+    
+    .card:hover {
+        transform: none;
+    }
+    
+    .hover-lift:hover {
+        transform: none;
+    }
+}

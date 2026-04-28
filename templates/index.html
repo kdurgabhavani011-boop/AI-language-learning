@@ -1,0 +1,618 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}LinguaAI - AI-Powered Language Learning{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Hero Section */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 120px 0 80px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 40%),
+            radial-gradient(ellipse at 40% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%);
+        z-index: 0;
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+    }
+    
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 16px;
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        color: #a5b4fc;
+        margin-bottom: 24px;
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .hero-badge i {
+        color: #10b981;
+    }
+    
+    .hero h1 {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 24px;
+        animation: fadeInUp 0.6s ease-out 0.1s both;
+    }
+    
+    .hero h1 .highlight {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .hero-description {
+        font-size: 1.25rem;
+        color: #94a3b8;
+        margin-bottom: 40px;
+        max-width: 600px;
+        animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        animation: fadeInUp 0.6s ease-out 0.3s both;
+    }
+    
+    .hero-stats {
+        display: flex;
+        gap: 48px;
+        margin-top: 64px;
+        animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+    
+    .hero-stat {
+        text-align: center;
+    }
+    
+    .hero-stat-number {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #f8fafc;
+    }
+    
+    .hero-stat-label {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    /* Floating Elements */
+    .floating-card {
+        position: absolute;
+        background: rgba(30, 41, 59, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 16px 24px;
+        animation: float 6s ease-in-out infinite;
+    }
+    
+    .floating-card-1 {
+        top: 20%;
+        right: 10%;
+        animation-delay: 0s;
+    }
+    
+    .floating-card-2 {
+        bottom: 30%;
+        right: 20%;
+        animation-delay: 2s;
+    }
+    
+    .floating-card-3 {
+        top: 40%;
+        right: 5%;
+        animation-delay: 4s;
+    }
+    
+    .floating-card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+    
+    .floating-card-icon.spanish { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+    .floating-card-icon.french { background: rgba(59, 130, 246, 0.2); color: #3b82f6; }
+    .floating-card-icon.german { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+    
+    /* Features Section */
+    .features {
+        padding: 100px 0;
+        position: relative;
+    }
+    
+    .section-header {
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 64px;
+    }
+    
+    .section-tag {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(99, 102, 241, 0.1);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        color: #6366f1;
+        margin-bottom: 16px;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    
+    .section-description {
+        color: #64748b;
+        font-size: 1.125rem;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+    }
+    
+    .feature-card {
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 32px;
+        transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(99, 102, 241, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .feature-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.75rem;
+        margin-bottom: 20px;
+    }
+    
+    .feature-icon.ai { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .feature-icon.gamification { background: linear-gradient(135deg, #10b981, #059669); }
+    .feature-icon.progress { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .feature-icon.multilingual { background: linear-gradient(135deg, #ec4899, #db2777); }
+    .feature-icon.voice { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+    .feature-icon.community { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+    
+    .feature-card h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 12px;
+    }
+    
+    .feature-card p {
+        color: #64748b;
+        line-height: 1.6;
+    }
+    
+    /* Languages Section */
+    .languages {
+        padding: 100px 0;
+        background: linear-gradient(180deg, transparent, rgba(30, 41, 59, 0.3));
+    }
+    
+    .languages-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .language-card {
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 24px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .language-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(99, 102, 241, 0.3);
+    }
+    
+    .language-flag {
+        font-size: 3rem;
+        margin-bottom: 12px;
+    }
+    
+    .language-card h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    
+    .language-card span {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+        padding: 100px 0;
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 24px;
+    }
+    
+    .testimonial-card {
+        background: rgba(30, 41, 59, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 32px;
+    }
+    
+    .testimonial-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .testimonial-avatar {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .testimonial-info h4 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+    
+    .testimonial-info span {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    .testimonial-text {
+        color: #94a3b8;
+        line-height: 1.7;
+    }
+    
+    /* CTA Section */
+    .cta {
+        padding: 100px 0;
+    }
+    
+    .cta-box {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 24px;
+        padding: 64px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .cta-box::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        animation: rotate 20s linear infinite;
+    }
+    
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+    
+    .cta h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+    
+    .cta p {
+        font-size: 1.125rem;
+        color: #94a3b8;
+        margin-bottom: 32px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-check-circle"></i>
+                <span>AI-Powered Learning Platform</span>
+            </div>
+            
+            <h1>Master Any Language with <span class="highlight">AI Companion</span></h1>
+            
+            <p class="hero-description">
+                Learn languages through interactive AI conversations, gamified lessons, and personalized progress tracking. Join thousands of learners achieving fluency faster.
+            </p>
+            
+            <div class="hero-buttons">
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket"></i>
+                    Start Learning Free
+                </a>
+                <a href="#features" class="btn btn-outline btn-lg">
+                    <i class="fas fa-play"></i>
+                    See Features
+                </a>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">50K+</div>
+                    <div class="hero-stat-label">Active Learners</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">200+</div>
+                    <div class="hero-stat-label">Languages</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">95%</div>
+                    <div class="hero-stat-label">Success Rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Floating Cards -->
+    <div class="floating-card floating-card-1">
+        <div class="floating-card-icon spanish">🇪🇸</div>
+        <div>Spanish</div>
+    </div>
+    <div class="floating-card floating-card-2">
+        <div class="floating-card-icon french">🇫🇷</div>
+        <div>French</div>
+    </div>
+    <div class="floating-card floating-card-3">
+        <div class="floating-card-icon german">🇩🇪</div>
+        <div>German</div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Why LinguaAI?</span>
+            <h2 class="section-title">The Future of Language Learning</h2>
+            <p class="section-description">
+                Our AI-powered platform combines cutting-edge technology with proven learning methods to help you achieve fluency faster than ever.
+            </p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon ai">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI Conversation Partner</h3>
+                <p>Practice real conversations with our AI chatbot that adapts to your level and provides instant feedback on pronunciation and grammar.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon gamification">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Gamified Learning</h3>
+                <p>Earn XP, unlock achievements, maintain streaks, and compete on leaderboards. Make learning fun with our engaging game mechanics.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon progress">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Smart Progress Tracking</h3>
+                <p>Track your learning journey with detailed analytics. Identify weak areas and get personalized recommendations to improve faster.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon multilingual">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Multiple Languages</h3>
+                <p>Learn Spanish, French, German, Japanese, Chinese, and more. Our platform supports major world languages with comprehensive curriculum.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon voice">
+                    <i class="fas fa-microphone"></i>
+                </div>
+                <h3>Voice Practice</h3>
+                <p>Improve your pronunciation with voice recognition technology. Get real-time feedback and practice speaking with native-like AI.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon community">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community & Support</h3>
+                <p>Join a community of learners. Share tips, celebrate progress, and stay motivated with fellow language enthusiasts.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Languages Section -->
+<section class="languages">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Our Languages</span>
+            <h2 class="section-title">Choose Your Learning Path</h2>
+            <p class="section-description">
+                Start learning any of these popular languages with our comprehensive curriculum.
+            </p>
+        </div>
+        
+        <div class="languages-grid">
+            <div class="language-card">
+                <div class="language-flag">🇪🇸</div>
+                <h4>Spanish</h4>
+                <span>1.2M+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇫🇷</div>
+                <h4>French</h4>
+                <span>800K+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇩🇪</div>
+                <h4>German</h4>
+                <span>600K+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇯🇵</div>
+                <h4>Japanese</h4>
+                <span>500K+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇨🇳</div>
+                <h4>Chinese</h4>
+                <span>400K+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇮🇳</div>
+                <h4>Hindi</h4>
+                <span>300K+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇰🇷</div>
+                <h4>Korean</h4>
+                <span>200K+ Learners</span>
+            </div>
+            <div class="language-card">
+                <div class="language-flag">🇹🇷</div>
+                <h4>Telugu</h4>
+                <span>100K+ Learners</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-tag">Testimonials</span>
+            <h2 class="section-title">What Our Learners Say</h2>
+            <p class="section-description">
+                Join thousands of satisfied learners who have transformed their language skills.
+            </p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" alt="Sarah M." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h4>Sarah Mitchell</h4>
+                        <span>Learning Spanish</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">"The AI chatbot is amazing! It feels like talking to a real person. I've learned more in 2 weeks than in months of traditional apps."</p>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" alt="James K." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h4>James Kim</h4>
+                        <span>Learning Japanese</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">"The gamification keeps me coming back every day. My streak is at 45 days now! The progress tracking really helps me stay focused."</p>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop" alt="Emma L." class="testimonial-avatar">
+                    <div class="testimonial-info">
+                        <h4>Emma Lee</h4>
+                        <span>Learning French</span>
+                    </div>
+                </div>
+                <p class="testimonial-text">"Finally an app that makes learning fun! The lessons are well-structured and the AI responses are incredibly helpful for practice."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta">
+    <div class="container">
+        <div class="cta-box">
+            <div class="cta-content">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join LinguaAI today and experience the future of language learning. No credit card required.</p>
+                <a href="{% url 'register' %}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-user-plus"></i>
+                    Create Free Account
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

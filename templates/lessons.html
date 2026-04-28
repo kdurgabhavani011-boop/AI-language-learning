@@ -1,0 +1,464 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lessons - LinguaAI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .lessons-page {
+        padding: 100px 0 60px;
+        min-height: 100vh;
+    }
+    
+    .page-header {
+        margin-bottom: 40px;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .page-header p {
+        color: #64748b;
+    }
+    
+    /* Filters */
+    .filters-bar {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+    }
+    
+    .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .filter-group label {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    .filter-select {
+        padding: 10px 16px;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #f8fafc;
+        font-size: 0.875rem;
+        cursor: pointer;
+    }
+    
+    .filter-select:focus {
+        outline: none;
+        border-color: #6366f1;
+    }
+    
+    .search-box {
+        position: relative;
+        flex: 1;
+        max-width: 300px;
+    }
+    
+    .search-box input {
+        width: 100%;
+        padding: 10px 16px 10px 40px;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #f8fafc;
+        font-size: 0.875rem;
+    }
+    
+    .search-box input:focus {
+        outline: none;
+        border-color: #6366f1;
+    }
+    
+    .search-box i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+    }
+    
+    /* Language Tabs */
+    .language-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 32px;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    
+    .lang-tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        color: #94a3b8;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+    
+    .lang-tab:hover,
+    .lang-tab.active {
+        background: rgba(99, 102, 241, 0.2);
+        border-color: rgba(99, 102, 241, 0.4);
+        color: #f8fafc;
+    }
+    
+    /* Lessons Grid */
+    .lessons-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+    }
+    
+    .lesson-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 24px;
+        transition: all 0.3s ease;
+    }
+    
+    .lesson-card:hover {
+        border-color: rgba(99, 102, 241, 0.3);
+        transform: translateY(-4px);
+    }
+    
+    .lesson-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+    
+    .lesson-title-area {
+        flex: 1;
+    }
+    
+    .lesson-title-area h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    
+    .lesson-title-area .language {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    .lesson-badge {
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+    
+    .lesson-badge.beginner {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+    }
+    
+    .lesson-badge.intermediate {
+        background: rgba(245, 158, 11, 0.2);
+        color: #f59e0b;
+    }
+    
+    .lesson-badge.advanced {
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+    }
+    
+    .lesson-description {
+        font-size: 0.875rem;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .lesson-meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .lesson-meta-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+    
+    .lesson-meta-item i {
+        color: #6366f1;
+    }
+    
+    .lesson-progress-bar {
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 16px;
+    }
+    
+    .lesson-progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+    }
+    
+    .lesson-status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .lesson-status-text {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    .lesson-status-text.completed {
+        color: #10b981;
+    }
+    
+    .lesson-status-text.in-progress {
+        color: #6366f1;
+    }
+    
+    .lesson-action {
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 0.875rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .lesson-action.btn-primary {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+    }
+    
+    .lesson-action.btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+    
+    .lesson-action.btn-outline {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #94a3b8;
+    }
+    
+    .lesson-action.btn-outline:hover {
+        border-color: #6366f1;
+        color: #6366f1;
+    }
+    
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        color: #64748b;
+        margin-bottom: 20px;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    .empty-state p {
+        color: #64748b;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="lessons-page">
+    <div class="container">
+        <!-- Header -->
+        <div class="page-header">
+            <h1>📚 Browse Lessons</h1>
+            <p>Explore our comprehensive language lessons and track your progress</p>
+        </div>
+        
+        <!-- Language Tabs -->
+        <div class="language-tabs">
+            <a href="{% url 'lessons' %}" class="lang-tab {% if not selected_language %}active{% endif %}">
+                <span>🌐</span> All Languages
+            </a>
+            <a href="?language=Spanish" class="lang-tab {% if selected_language == 'Spanish' %}active{% endif %}">
+                <span>🇪🇸</span> Spanish
+            </a>
+            <a href="?language=French" class="lang-tab {% if selected_language == 'French' %}active{% endif %}">
+                <span>🇫🇷</span> French
+            </a>
+            <a href="?language=German" class="lang-tab {% if selected_language == 'German' %}active{% endif %}">
+                <span>🇩🇪</span> German
+            </a>
+            <a href="?language=Japanese" class="lang-tab {% if selected_language == 'Japanese' %}active{% endif %}">
+                <span>🇯🇵</span> Japanese
+            </a>
+            <a href="?language=Chinese" class="lang-tab {% if selected_language == 'Chinese' %}active{% endif %}">
+                <span>🇨🇳</span> Chinese
+            </a>
+            <a href="?language=hindi" class="lang-tab {% if selected_language == 'Hindi' %}active{% endif %}">
+                <span>🇮🇳</span> Hindi
+            </a>
+            <a href="?language=korean" class="lang-tab {% if selected_language == 'Korean' %}active{% endif %}">
+                <span>🇰🇷</span> Korean
+            </a>
+            <a href="?language=telugu" class="lang-tab {% if selected_language == 'Telugu' %}active{% endif %}">
+                <span>🇹🇷</span> Telugu
+            </a>
+        </div>
+        
+        <!-- Filters -->
+        <div class="filters-bar">
+            <div class="filter-group">
+                <label>Category:</label>
+                <select class="filter-select" onchange="filterLessons(this.value)">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category.name }}" {% if selected_category == category.name %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Level:</label>
+                <select class="filter-select" onchange="filterLessons(this.value)">
+                    <option value="">All Levels</option>
+                    {% for difficulty in difficulties %}
+                    <option value="{{ difficulty.name }}" {% if selected_difficulty == difficulty.name %}selected{% endif %}>
+                        {{ difficulty.name }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search lessons...">
+            </div>
+        </div>
+        
+        <!-- Lessons Grid -->
+        <div class="lessons-grid">
+            {% for item in lessons_list %}
+            <div class="lesson-card">
+                <div class="lesson-card-header">
+                    <div class="lesson-title-area">
+                        <h3>{{ item.lesson.title }}</h3>
+                        <span class="language">{{ item.lesson.language.name }} • {{ item.lesson.category.name }}</span>
+                    </div>
+                    <span class="lesson-badge {{ item.lesson.difficulty.name|lower }}">
+                        {{ item.lesson.difficulty.name }}
+                    </span>
+                </div>
+                
+                <p class="lesson-description">{{ item.lesson.description }}</p>
+                
+                <div class="lesson-meta">
+                    <div class="lesson-meta-item">
+                        <i class="fas fa-clock"></i>
+                        <span>{{ item.lesson.duration_minutes }} min</span>
+                    </div>
+                    <div class="lesson-meta-item">
+                        <i class="fas fa-star"></i>
+                        <span>+{{ item.lesson.xp_reward }} XP</span>
+                    </div>
+                </div>
+                
+                {% if item.progress %}
+                <div class="lesson-progress-bar">
+                    <div class="lesson-progress-fill" style="width: {% if item.progress.status == 'completed' %}100%{% else %}50%{% endif %}"></div>
+                </div>
+                {% endif %}
+                
+                <div class="lesson-status">
+                    {% if item.progress %}
+                        {% if item.progress.status == 'completed' %}
+                            <span class="lesson-status-text completed">
+                                <i class="fas fa-check-circle"></i> Completed ({{ item.progress.score }}%)
+                            </span>
+                            <a href="{% url 'practice' %}" class="lesson-action btn-outline">Review</a>
+                        {% else %}
+                            <span class="lesson-status-text in-progress">
+                                <i class="fas fa-play-circle"></i> In Progress
+                            </span>
+                            <a href="{% url 'practice' %}" class="lesson-action btn-primary">Continue</a>
+                        {% endif %}
+                    {% else %}
+                        <span class="lesson-status-text">Not started</span>
+                        <a href="#" class="lesson-action btn-primary" onclick="startLesson({{ item.lesson.id }})">Start</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <div class="empty-state">
+                <i class="fas fa-book-open"></i>
+                <h3>No lessons found</h3>
+                <p>Try adjusting your filters or check back later for new content.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function filterLessons(value) {
+        const url = new URL(window.location.href);
+        if (value) {
+            url.searchParams.set('category', value);
+        } else {
+            url.searchParams.delete('category');
+        }
+        window.location.href = url.toString();
+    }
+    
+    function startLesson(lessonId) {
+        fetch('{% url "progress_api" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                lesson_id: lessonId,
+                status: 'in_progress',
+                score: 0
+            })
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '{% url "practice" %}';
+            }
+        });
+    }
+</script>
+{% endblock %}

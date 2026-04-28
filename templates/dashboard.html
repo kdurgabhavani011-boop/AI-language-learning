@@ -1,0 +1,711 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - LinguaAI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dashboard {
+        padding: 100px 0 60px;
+        min-height: 100vh;
+    }
+    
+    .dashboard-header {
+        margin-bottom: 40px;
+    }
+    
+    .welcome-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+    
+    .welcome-text h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+    
+    .welcome-text p {
+        color: #64748b;
+    }
+    
+    .user-level {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: rgba(30, 41, 59, 0.6);
+        padding: 16px 24px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    
+    .level-badge {
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+    .level-info h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+    
+    .level-info span {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+    
+    .stat-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .stat-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+    }
+    
+    .stat-icon.streak { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .stat-icon.xp { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+    .stat-icon.lessons { background: linear-gradient(135deg, #10b981, #059669); }
+    .stat-icon.achievements { background: linear-gradient(135deg, #ec4899, #db2777); }
+    
+    .stat-info h3 {
+        font-size: 1.75rem;
+        font-weight: 700;
+    }
+    
+    .stat-info p {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    /* Daily Goal */
+    .daily-goal-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 40px;
+    }
+    
+    .daily-goal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    
+    .daily-goal-header h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+    
+    .daily-goal-header span {
+        font-size: 0.875rem;
+        color: #64748b;
+    }
+    
+    .progress-ring-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+    }
+    
+    .progress-ring {
+        position: relative;
+        width: 120px;
+        height: 120px;
+    }
+    
+    .progress-ring svg {
+        transform: rotate(-90deg);
+    }
+    
+    .progress-ring circle {
+        fill: none;
+        stroke-width: 8;
+    }
+    
+    .progress-ring .bg {
+        stroke: rgba(255, 255, 255, 0.1);
+    }
+    
+    .progress-ring .progress {
+        stroke: url(#gradient);
+        stroke-linecap: round;
+        stroke-dasharray: 314;
+        stroke-dashoffset: 314;
+        transition: stroke-dashoffset 1s ease;
+    }
+    
+    .progress-ring-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    
+    .progress-ring-text .number {
+        font-size: 1.75rem;
+        font-weight: 700;
+    }
+    
+    .progress-ring-text .label {
+        font-size: 0.75rem;
+        color: #64748b;
+    }
+    
+    .goal-tasks {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .goal-task {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 12px;
+    }
+    
+    .goal-task.completed {
+        opacity: 0.6;
+    }
+    
+    .goal-task-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+    }
+    
+    .goal-task-icon.completed {
+        background: #10b981;
+        color: white;
+    }
+    
+    .goal-task-icon.pending {
+        background: rgba(255, 255, 255, 0.1);
+        color: #64748b;
+    }
+    
+    .goal-task span {
+        font-size: 0.875rem;
+        color: #94a3b8;
+    }
+    
+    .goal-task.completed span {
+        text-decoration: line-through;
+    }
+    
+    /* Content Grid */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+    }
+    
+    @media (max-width: 1024px) {
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    
+    /* Recommended Lessons */
+    .section-card {
+        background: rgba(30, 41, 59, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+    
+    .section-header h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+    
+    .section-header a {
+        font-size: 0.875rem;
+        color: #6366f1;
+        text-decoration: none;
+    }
+    
+    .section-header a:hover {
+        text-decoration: underline;
+    }
+    
+    .lessons-carousel {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+    }
+    
+    .lesson-card {
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 20px;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .lesson-card:hover {
+        border-color: rgba(99, 102, 241, 0.3);
+        transform: translateY(-4px);
+    }
+    
+    .lesson-card-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .lesson-lang-icon {
+        font-size: 1.5rem;
+    }
+    
+    .lesson-card h4 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
+    .lesson-card p {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin-bottom: 16px;
+    }
+    
+    .lesson-meta {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+    
+    .lesson-meta span {
+        font-size: 0.75rem;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    /* Recent Activity */
+    .activity-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .activity-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        background: rgba(15, 23, 42, 0.4);
+        border-radius: 12px;
+    }
+    
+    .activity-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .activity-icon.completed { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+    .activity-icon.in-progress { background: rgba(99, 102, 241, 0.2); color: #6366f1; }
+    .activity-icon.achieved { background: rgba(234, 179, 8, 0.2); color: #eab308; }
+    
+    .activity-info h4 {
+        font-size: 0.875rem;
+        font-weight: 600;
+    }
+    
+    .activity-info span {
+        font-size: 0.75rem;
+        color: #64748b;
+    }
+    
+    /* Achievements */
+    .achievements-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+    }
+    
+    .achievement-badge {
+        aspect-ratio: 1;
+        background: rgba(15, 23, 42, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 12px;
+    }
+    
+    .achievement-badge.earned {
+        border-color: rgba(234, 179, 8, 0.3);
+    }
+    
+    .achievement-badge.locked {
+        opacity: 0.4;
+    }
+    
+    .achievement-badge i {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+    
+    .achievement-badge.earned i { color: #eab308; }
+    .achievement-badge.locked i { color: #64748b; }
+    
+    .achievement-badge span {
+        font-size: 0.625rem;
+        color: #64748b;
+    }
+    
+    /* Daily Challenge */
+    .challenge-card {
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 24px;
+    }
+    
+    .challenge-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+    }
+    
+    .challenge-header h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+    }
+    
+    .challenge-badge {
+        padding: 4px 12px;
+        background: rgba(234, 179, 8, 0.2);
+        border-radius: 50px;
+        font-size: 0.75rem;
+        color: #eab308;
+    }
+    
+    .challenge-card p {
+        font-size: 0.875rem;
+        color: #94a3b8;
+        margin-bottom: 16px;
+    }
+    
+    .challenge-reward {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.875rem;
+        color: #eab308;
+        margin-bottom: 16px;
+    }
+    
+    .challenge-btn {
+        width: 100%;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div class="welcome-section">
+                <div class="welcome-text">
+                    <h1>Welcome back, {{ user.first_name|default:user.username }}! 👋</h1>
+                    <p>Ready to continue your {{ profile.preferred_language }} learning journey?</p>
+                </div>
+                <div class="user-level">
+                    <div class="level-badge">{{ profile.level }}</div>
+                    <div class="level-info">
+                        <h3>Level {{ profile.level }}</h3>
+                        <span>{{ profile.total_xp }} XP total</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon streak">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ profile.current_streak }}</h3>
+                    <p>Day Streak</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon xp">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ profile.total_xp }}</h3>
+                    <p>Total XP</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon lessons">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ completed_lessons }}</h3>
+                    <p>Lessons Completed</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon achievements">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>{{ user_achievements|length }}</h3>
+                    <p>Achievements</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Goal -->
+        <div class="daily-goal-card">
+            <div class="daily-goal-header">
+                <h3>Daily Goal</h3>
+                <span>{{ today_lessons|default:0 }}/{{ daily_goal }} lessons</span>
+            </div>
+            <div class="progress-ring-container">
+                <div class="progress-ring">
+                    <svg width="120" height="120">
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#6366f1" />
+                                <stop offset="100%" stop-color="#8b5cf6" />
+                            </linearGradient>
+                        </defs>
+                        <circle class="bg" cx="60" cy="60" r="50" />
+                        <circle class="progress" cx="60" cy="60" r="50" 
+                            style="stroke-dashoffset: {{ 314|add:"-"|add:daily_progress|floatformat:0 }}" />
+                    </svg>
+                    <div class="progress-ring-text">
+                        <div class="number">{{ daily_progress|floatformat:0 }}%</div>
+                        <div class="label">Complete</div>
+                    </div>
+                </div>
+                <div class="goal-tasks">
+                    <div class="goal-task {% if today_lessons >= 1 %}completed{% endif %}">
+                        <div class="goal-task-icon {% if today_lessons >= 1 %}completed{% else %}pending{% endif %}">
+                            {% if today_lessons >= 1 %}<i class="fas fa-check"></i>{% else %}1{% endif %}
+                        </div>
+                        <span>Complete 1 lesson</span>
+                    </div>
+                    <div class="goal-task {% if today_lessons >= 2 %}completed{% endif %}">
+                        <div class="goal-task-icon {% if today_lessons >= 2 %}completed{% else %}pending{% endif %}">
+                            {% if today_lessons >= 2 %}<i class="fas fa-check"></i>{% else %}2{% endif %}
+                        </div>
+                        <span>Complete 2 lessons</span>
+                    </div>
+                    <div class="goal-task {% if today_lessons >= 3 %}completed{% endif %}">
+                        <div class="goal-task-icon {% if today_lessons >= 3 %}completed{% else %}pending{% endif %}">
+                            {% if today_lessons >= 3 %}<i class="fas fa-check"></i>{% else %}3{% endif %}
+                        </div>
+                        <span>Complete 3 lessons</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Daily Challenge -->
+                {% if daily_challenge %}
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <h3>🎯 Daily Challenge</h3>
+                        <span class="challenge-badge">+{{ daily_challenge.xp_reward }} XP</span>
+                    </div>
+                    <p>{{ daily_challenge.description }}</p>
+                    <div class="challenge-reward">
+                        <i class="fas fa-star"></i>
+                        <span>Earn {{ daily_challenge.xp_reward }} XP</span>
+                    </div>
+                    {% if challenge_completed %}
+                    <button class="btn btn-outline challenge-btn" disabled>
+                        <i class="fas fa-check"></i> Completed
+                    </button>
+                    {% else %}
+                    <a href="{% url 'practice' %}" class="btn btn-primary challenge-btn">
+                        <i class="fas fa-play"></i> Start Challenge
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+                <!-- Recommended Lessons -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Recommended for You</h3>
+                        <a href="{% url 'lessons' %}">View All</a>
+                    </div>
+                    <div class="lessons-carousel">
+                        {% for item in recommended %}
+                        <div class="lesson-card" onclick="startLesson({{ item.id }})">
+                            <div class="lesson-card-header">
+                                <span class="lesson-lang-icon">🇪🇸</span>
+                                <h4>{{ item.title }}</h4>
+                            </div>
+                            <p>{{ item.description|truncatechars:60 }}</p>
+                            <div class="lesson-meta">
+                                <span><i class="fas fa-clock"></i> {{ item.duration_minutes }} min</span>
+                                <span><i class="fas fa-star"></i> +{{ item.xp_reward }} XP</span>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p style="color: #64748b; grid-column: 1/-1;">No recommendations yet. Start exploring lessons!</p>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Recent Activity</h3>
+                    </div>
+                    <div class="activity-list">
+                        {% for progress in recent_progress %}
+                        <div class="activity-item">
+                            <div class="activity-icon {% if progress.status == 'completed' %}completed{% else %}in-progress{% endif %}">
+                                <i class="fas fa-{% if progress.status == 'completed' %}check{% else %}play{% endif %}"></i>
+                            </div>
+                            <div class="activity-info">
+                                <h4>{{ progress.lesson.title }}</h4>
+                                <span>{{ progress.get_status_display }} • {{ progress.score }}% score</span>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <p style="color: #64748b; text-align: center; padding: 20px;">No recent activity. Start a lesson!</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Achievements -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Achievements</h3>
+                        <a href="{% url 'profile' %}">View All</a>
+                    </div>
+                    <div class="achievements-grid">
+                        {% for achievement in all_achievements %}
+                        <div class="achievement-badge {% if achievement.id in earned_ids %}earned{% else %}locked{% endif %}">
+                            <i class="fas fa-{% if achievement.icon %}{{ achievement.icon }}{% else %}trophy{% endif %}"></i>
+                            <span>{{ achievement.name }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3>Quick Actions</h3>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a href="{% url 'practice' %}" class="btn btn-outline">
+                            <i class="fas fa-comments"></i> Practice Conversation
+                        </a>
+                        <a href="{% url 'lessons' %}" class="btn btn-outline">
+                            <i class="fas fa-book"></i> Browse Lessons
+                        </a>
+                        <a href="{% url 'profile' %}" class="btn btn-outline">
+                            <i class="fas fa-user"></i> View Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function startLesson(lessonId) {
+        // Mark lesson as in progress
+        fetch('{% url "progress_api" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({
+                lesson_id: lessonId,
+                status: 'in_progress',
+                score: 0
+            })
+        }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '{% url "practice" %}';
+            }
+        });
+    }
+</script>
+{% endblock %}
