@@ -460,6 +460,11 @@
     .challenge-btn {
         width: 100%;
     }
+
+    .lessons-empty {
+        color: #64748b;
+        grid-column: 1 / -1;
+    }
 </style>
 {% endblock %}
 
@@ -540,7 +545,7 @@
                         </defs>
                         <circle class="bg" cx="60" cy="60" r="50" />
                         <circle class="progress" cx="60" cy="60" r="50" 
-                            style="stroke-dashoffset: {{ 314|add:"-"|add:daily_progress|floatformat:0 }}" />
+                            style="stroke-dashoffset: '{{ 314|add:"-"|add:daily_progress|floatformat:0 }}'" />
                     </svg>
                     <div class="progress-ring-text">
                         <div class="number">{{ daily_progress|floatformat:0 }}%</div>
@@ -606,7 +611,7 @@
                     </div>
                     <div class="lessons-carousel">
                         {% for item in recommended %}
-                        <div class="lesson-card" onclick="startLesson({{ item.id }})">
+                        <div class="lesson-card" onclick="startLesson('{{ item.id }}')">
                             <div class="lesson-card-header">
                                 <span class="lesson-lang-icon">🇪🇸</span>
                                 <h4>{{ item.title }}</h4>
@@ -618,7 +623,7 @@
                             </div>
                         </div>
                         {% empty %}
-                        <p style="color: #64748b; grid-column: 1/-1;">No recommendations yet. Start exploring lessons!</p>
+                        <p class="lessons-empty">No recommendations yet. Start exploring lessons! </p>
                         {% endfor %}
                     </div>
                 </div>
