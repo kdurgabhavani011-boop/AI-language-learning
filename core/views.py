@@ -8,6 +8,7 @@ from django.utils import timezone
 import json
 import random
 
+from django.db.models import Sum
 from .models import (
     UserProfile, Language, LessonCategory, DifficultyLevel, 
     Lesson, UserProgress, Achievement, UserAchievement, 
@@ -139,6 +140,8 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('dashboard')
     
+    next_url = request.GET.get('next', 'dashboard')
+    
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
@@ -148,12 +151,23 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Welcome back, {user.first_name or username}!')
-                return redirect('dashboard')
-        messages.error(request, 'Invalid username or password')
+                
+                # Check if next_url is safe (optional but good practice)
+                from django.utils.http import url_has_allowed_host_and_scheme
+                if not url_has_allowed_host_and_scheme(url=next_url, allowed_hosts={request.get_host()}):
+                    next_url = 'dashboard'
+                
+                return redirect(next_url)
+        
+        # If we reach here, authentication failed
+        error_msg = 'Invalid username or password'
+        # Check if user exists but password is wrong for better feedback (be careful with security)
+        # For now, stick to the standard error for security reasons.
+        messages.error(request, error_msg)
     else:
         form = LoginForm()
     
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form, 'next': next_url})
 
 
 def register_view(request):
@@ -364,7 +378,7 @@ def profile(request):
     
     total_time = UserProgress.objects.filter(
         user=request.user
-    ).aggregate(total=models.Sum('time_spent_minutes'))['total'] or 0
+    ).aggregate(total=Sum('time_spent_minutes'))['total'] or 0
     
     # Get achievements
     achievements = UserAchievement.objects.filter(

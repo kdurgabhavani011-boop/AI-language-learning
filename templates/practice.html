@@ -9,34 +9,34 @@
         padding: 100px 0 60px;
         min-height: 100vh;
     }
-    
+
     .practice-header {
         margin-bottom: 32px;
     }
-    
+
     .practice-header h1 {
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 8px;
     }
-    
+
     .practice-header p {
         color: #64748b;
     }
-    
+
     /* Practice Layout */
     .practice-layout {
         display: grid;
         grid-template-columns: 1fr 350px;
         gap: 24px;
     }
-    
+
     @media (max-width: 1024px) {
         .practice-layout {
             grid-template-columns: 1fr;
         }
     }
-    
+
     /* Chat Container */
     .chat-container {
         background: rgba(30, 41, 59, 0.6);
@@ -44,7 +44,7 @@
         border-radius: 24px;
         overflow: hidden;
     }
-    
+
     .chat-header {
         display: flex;
         align-items: center;
@@ -52,13 +52,13 @@
         padding: 20px 24px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    
+
     .chat-header-left {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    
+
     .ai-avatar {
         width: 48px;
         height: 48px;
@@ -69,23 +69,23 @@
         justify-content: center;
         font-size: 1.5rem;
     }
-    
+
     .chat-header-info h3 {
         font-size: 1.125rem;
         font-weight: 600;
     }
-    
+
     .chat-header-info span {
         font-size: 0.875rem;
         color: #10b981;
     }
-    
+
     .chat-header-right {
         display: flex;
         align-items: center;
         gap: 16px;
     }
-    
+
     .language-selector {
         padding: 8px 16px;
         background: rgba(15, 23, 42, 0.6);
@@ -94,7 +94,7 @@
         color: #f8fafc;
         font-size: 0.875rem;
     }
-    
+
     .chat-messages {
         height: 500px;
         overflow-y: auto;
@@ -103,22 +103,22 @@
         flex-direction: column;
         gap: 16px;
     }
-    
+
     .message {
         display: flex;
         gap: 12px;
         max-width: 80%;
     }
-    
+
     .message.ai {
         align-self: flex-start;
     }
-    
+
     .message.user {
         align-self: flex-end;
         flex-direction: row-reverse;
     }
-    
+
     .message-avatar {
         width: 36px;
         height: 36px;
@@ -129,52 +129,52 @@
         font-size: 1rem;
         flex-shrink: 0;
     }
-    
+
     .message.ai .message-avatar {
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
     }
-    
+
     .message.user .message-avatar {
         background: linear-gradient(135deg, #10b981, #059669);
     }
-    
+
     .message-content {
         padding: 14px 18px;
         border-radius: 18px;
     }
-    
+
     .message.ai .message-content {
         background: rgba(30, 41, 59, 0.8);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-bottom-left-radius: 4px;
     }
-    
+
     .message.user .message-content {
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
         border-bottom-right-radius: 4px;
     }
-    
+
     .message-content p {
         font-size: 0.9375rem;
         line-height: 1.5;
     }
-    
+
     .message-time {
         font-size: 0.75rem;
         color: #64748b;
         margin-top: 4px;
     }
-    
+
     .message.user .message-time {
         text-align: right;
     }
-    
+
     /* Chat Input */
     .chat-input-area {
         padding: 20px 24px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
-    
+
     .chat-input-wrapper {
         display: flex;
         align-items: center;
@@ -184,11 +184,11 @@
         border-radius: 16px;
         padding: 8px 8px 8px 20px;
     }
-    
+
     .chat-input-wrapper:focus-within {
         border-color: #6366f1;
     }
-    
+
     .chat-input {
         flex: 1;
         background: transparent;
@@ -196,21 +196,21 @@
         color: #f8fafc;
         font-size: 1rem;
     }
-    
+
     .chat-input:focus {
         outline: none;
     }
-    
+
     .chat-input::placeholder {
         color: #64748b;
     }
-    
+
     .chat-actions {
         display: flex;
         align-items: center;
         gap: 8px;
     }
-    
+
     .chat-action-btn {
         width: 40px;
         height: 40px;
@@ -221,12 +221,12 @@
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    
+
     .chat-action-btn:hover {
         background: rgba(99, 102, 241, 0.2);
         color: #6366f1;
     }
-    
+
     .send-btn {
         width: 44px;
         height: 44px;
@@ -237,50 +237,50 @@
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    
+
     .send-btn:hover {
         transform: scale(1.05);
     }
-    
+
     /* Sidebar */
     .practice-sidebar {
         display: flex;
         flex-direction: column;
         gap: 24px;
     }
-    
+
     .sidebar-card {
         background: rgba(30, 41, 59, 0.6);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 20px;
         padding: 24px;
     }
-    
+
     .sidebar-card h3 {
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 16px;
     }
-    
+
     /* Stats */
     .stats-list {
         display: flex;
         flex-direction: column;
         gap: 16px;
     }
-    
+
     .stat-item {
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
-    
+
     .stat-item-left {
         display: flex;
         align-items: center;
         gap: 12px;
     }
-    
+
     .stat-icon {
         width: 40px;
         height: 40px;
@@ -289,28 +289,39 @@
         align-items: center;
         justify-content: center;
     }
-    
-    .stat-icon.streak { background: rgba(245, 158, 11, 0.2); color: #f59e0b; }
-    .stat-icon.xp { background: rgba(99, 102, 241, 0.2); color: #6366f1; }
-    .stat-icon.messages { background: rgba(16, 185, 129, 0.2); color: #10b981; }
-    
+
+    .stat-icon.streak {
+        background: rgba(245, 158, 11, 0.2);
+        color: #f59e0b;
+    }
+
+    .stat-icon.xp {
+        background: rgba(99, 102, 241, 0.2);
+        color: #6366f1;
+    }
+
+    .stat-icon.messages {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+    }
+
     .stat-item-left span {
         font-size: 0.875rem;
         color: #94a3b8;
     }
-    
+
     .stat-item-right {
         font-size: 1.125rem;
         font-weight: 600;
     }
-    
+
     /* Quick Phrases */
     .quick-phrases {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
     }
-    
+
     .phrase-btn {
         padding: 8px 14px;
         background: rgba(15, 23, 42, 0.6);
@@ -321,19 +332,19 @@
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    
+
     .phrase-btn:hover {
         border-color: #6366f1;
         color: #6366f1;
     }
-    
+
     /* Tips */
     .tips-list {
         display: flex;
         flex-direction: column;
         gap: 12px;
     }
-    
+
     .tip-item {
         display: flex;
         align-items: flex-start;
@@ -342,18 +353,18 @@
         background: rgba(15, 23, 42, 0.4);
         border-radius: 12px;
     }
-    
+
     .tip-item i {
         color: #6366f1;
         margin-top: 2px;
     }
-    
+
     .tip-item p {
         font-size: 0.875rem;
         color: #94a3b8;
         line-height: 1.5;
     }
-    
+
     /* Typing Indicator */
     .typing-indicator {
         display: flex;
@@ -364,7 +375,7 @@
         border-radius: 18px;
         border-bottom-left-radius: 4px;
     }
-    
+
     .typing-indicator span {
         width: 8px;
         height: 8px;
@@ -372,18 +383,26 @@
         border-radius: 50%;
         animation: typing 1.4s infinite;
     }
-    
+
     .typing-indicator span:nth-child(2) {
         animation-delay: 0.2s;
     }
-    
+
     .typing-indicator span:nth-child(3) {
         animation-delay: 0.4s;
     }
-    
+
     @keyframes typing {
-        0%, 60%, 100% { transform: translateY(0); }
-        30% { transform: translateY(-4px); }
+
+        0%,
+        60%,
+        100% {
+            transform: translateY(0);
+        }
+
+        30% {
+            transform: translateY(-4px);
+        }
     }
 </style>
 {% endblock %}
@@ -396,7 +415,7 @@
             <h1>💬 AI Practice</h1>
             <p>Chat with our AI to practice your {{ profile.preferred_language }} skills</p>
         </div>
-        
+
         <div class="practice-layout">
             <!-- Chat Area -->
             <div class="chat-container">
@@ -412,18 +431,20 @@
                     </div>
                     <div class="chat-header-right">
                         <select class="language-selector" id="languageSelector">
-                            <option value="Spanish" {% if profile.preferred_language == 'Spanish' %}selected{% endif %}>🇪🇸 Spanish</option>
-                            <option value="French" {% if profile.preferred_language == 'French' %}selected{% endif %}>🇫🇷 French</option>
-                            <option value="German" {% if profile.preferred_language == 'German' %}selected{% endif %}>🇩🇪 German</option>
-                            <option value="Japanese" {% if profile.preferred_language == 'Japanese' %}selected{% endif %}>🇯🇵 Japanese</option>
-                            <option value="Chinese" {% if profile.preferred_language == 'Chinese' %}selected{% endif %}>🇨🇳 Chinese</option>
-                            <option value="Hindi" {% if profile.preferred_language == 'Hindi' %}selected{% endif %}>🇮🇳 Hindi</option>
-                            <option value="Korean" {% if profile.preferred_language == 'Korean' %}selected{% endif %}>🇰🇷 Korean</option>
-                            <option value="Telugu" {% if profile.preferred_language == 'Telugu' %}selected{% endif %}>🇹🇷 Telugu</option>
+                            <option value="Spanish" {% if profile.preferred_language=='Spanish' %}selected{% endif %}>
+                                🇪🇸 Spanish</option>
+                            <option value="French" {% if profile.preferred_language=='French' %}selected{% endif %}>🇫🇷
+                                French</option>
+                            <option value="German" {% if profile.preferred_language=='German' %}selected{% endif %}>🇩🇪
+                                German</option>
+                            <option value="Japanese" {% if profile.preferred_language=='Japanese' %}selected{% endif %}>
+                                🇯🇵 Japanese</option>
+                            <option value="Chinese" {% if profile.preferred_language=='Chinese' %}selected{% endif %}>
+                                🇨🇳 Chinese</option>
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="chat-messages" id="chatMessages">
                     <!-- Welcome Message -->
                     <div class="message ai">
@@ -431,11 +452,13 @@
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="message-content">
-                            <p>¡Hola! I'm your AI language tutor. Let's practice {{ profile.preferred_language }} together! You can ask me questions, request translations, or just have a conversation. What would you like to practice today?</p>
+                            <p>¡Hola! I'm your AI language tutor. Let's practice {{ profile.preferred_language }}
+                                together! You can ask me questions, request translations, or just have a conversation.
+                                What would you like to practice today?</p>
                             <div class="message-time">Just now</div>
                         </div>
                     </div>
-                    
+
                     {% for chat in chat_history %}
                     <div class="message user">
                         <div class="message-avatar">
@@ -457,11 +480,10 @@
                     </div>
                     {% endfor %}
                 </div>
-                
+
                 <div class="chat-input-area">
                     <div class="chat-input-wrapper">
-                        <input type="text" class="chat-input" id="chatInput" 
-                            placeholder="Type your message..." 
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..."
                             onkeypress="handleKeyPress(event)">
                         <div class="chat-actions">
                             <button class="chat-action-btn" title="Voice Input">
@@ -477,7 +499,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Sidebar -->
             <div class="practice-sidebar">
                 <!-- Stats Card -->
@@ -513,7 +535,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Quick Phrases -->
                 <div class="sidebar-card">
                     <h3>Quick Phrases</h3>
@@ -523,10 +545,11 @@
                         <button class="phrase-btn" onclick="sendPhrase('Thank you')">Thank you</button>
                         <button class="phrase-btn" onclick="sendPhrase('Goodbye')">Goodbye</button>
                         <button class="phrase-btn" onclick="sendPhrase('Please help me')">Please help me</button>
-                        <button class="phrase-btn" onclick="sendPhrase('I don\'t understand')">I don't understand</button>
+                        <button class="phrase-btn" onclick="sendPhrase('I don\'t understand')">I don't
+                            understand</button>
                     </div>
                 </div>
-                
+
                 <!-- Tips -->
                 <div class="sidebar-card">
                     <h3>💡 Tips</h3>
@@ -554,32 +577,32 @@
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
     const languageSelector = document.getElementById('languageSelector');
-    
+
     // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
-    
+
     function handleKeyPress(event) {
         if (event.key === 'Enter') {
             sendMessage();
         }
     }
-    
+
     function sendPhrase(phrase) {
         chatInput.value = phrase;
         sendMessage();
     }
-    
+
     function sendMessage() {
         const message = chatInput.value.trim();
         if (!message) return;
-        
+
         // Add user message
         addMessage(message, 'user');
         chatInput.value = '';
-        
+
         // Show typing indicator
         showTypingIndicator();
-        
+
         // Send to API
         fetch('{% url "chat_api" %}', {
             method: 'POST',
@@ -592,29 +615,29 @@
                 language: languageSelector.value
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            // Remove typing indicator
-            removeTypingIndicator();
-            
-            // Add AI response
-            addMessage(data.response, 'ai');
-            
-            // Update stats
-            updateStats(data);
-        })
-        .catch(error => {
-            removeTypingIndicator();
-            addMessage("Sorry, I encountered an error. Please try again.", 'ai');
-        });
+            .then(response => response.json())
+            .then(data => {
+                // Remove typing indicator
+                removeTypingIndicator();
+
+                // Add AI response
+                addMessage(data.response, 'ai');
+
+                // Update stats
+                updateStats(data);
+            })
+            .catch(error => {
+                removeTypingIndicator();
+                addMessage("Sorry, I encountered an error. Please try again.", 'ai');
+            });
     }
-    
+
     function addMessage(text, type) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;
-        
+
         const avatarIcon = type === 'ai' ? 'fa-robot' : 'fa-user';
-        
+
         messageDiv.innerHTML = `
             <div class="message-avatar">
                 <i class="fas ${avatarIcon}"></i>
@@ -624,11 +647,11 @@
                 <div class="message-time">Just now</div>
             </div>
         `;
-        
+
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
+
     function showTypingIndicator() {
         const indicator = document.createElement('div');
         indicator.className = 'typing-indicator';
@@ -641,14 +664,14 @@
         chatMessages.appendChild(indicator);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
-    
+
     function removeTypingIndicator() {
         const indicator = document.getElementById('typingIndicator');
         if (indicator) {
             indicator.remove();
         }
     }
-    
+
     function updateStats(data) {
         // Could update sidebar stats here
         console.log('XP:', data.xp, 'Streak:', data.streak);

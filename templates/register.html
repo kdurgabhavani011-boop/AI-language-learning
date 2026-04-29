@@ -1,217 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Register - LinguaAI{% endblock %}
+{% block title %}Join LinguaAI - Start Learning Today{% endblock %}
 
 {% block extra_css %}
-<style>
-    .auth-page {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 40px 20px;
-        position: relative;
-    }
-    
-    .auth-page::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: 
-            radial-gradient(ellipse at 30% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
-        z-index: 0;
-    }
-    
-    .auth-container {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 500px;
-    }
-    
-    .auth-card {
-        background: rgba(30, 41, 59, 0.8);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 24px;
-        padding: 48px 40px;
-    }
-    
-    .auth-header {
-        text-align: center;
-        margin-bottom: 32px;
-    }
-    
-    .auth-logo {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        font-size: 1.75rem;
-        font-weight: 700;
-        color: #f8fafc;
-        text-decoration: none;
-        margin-bottom: 24px;
-    }
-    
-    .auth-logo i {
-        color: #6366f1;
-    }
-    
-    .auth-header h1 {
-        font-size: 1.75rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-    
-    .auth-header p {
-        color: #64748b;
-    }
-    
-    .auth-header p a {
-        color: #6366f1;
-        text-decoration: none;
-    }
-    
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-    
-    .form-group label {
-        display: block;
-        font-size: 0.875rem;
-        font-weight: 500;
-        color: #94a3b8;
-        margin-bottom: 8px;
-    }
-    
-    .form-input {
-        width: 100%;
-        padding: 14px 16px;
-        background: rgba(15, 23, 42, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        color: #f8fafc;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-    }
-    
-    .form-input:focus {
-        outline: none;
-        border-color: #6366f1;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-    }
-    
-    .form-input::placeholder {
-        color: #475569;
-    }
-    
-    select.form-input {
-        cursor: pointer;
-    }
-    
-    select.form-input option {
-        background: #1e293b;
-        color: #f8fafc;
-    }
-    
-    .password-strength {
-        margin-top: 8px;
-    }
-    
-    .strength-bar {
-        height: 4px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
-        overflow: hidden;
-    }
-    
-    .strength-fill {
-        height: 100%;
-        width: 0;
-        transition: all 0.3s ease;
-    }
-    
-    .strength-fill.weak { width: 25%; background: #ef4444; }
-    .strength-fill.fair { width: 50%; background: #f59e0b; }
-    .strength-fill.good { width: 75%; background: #10b981; }
-    .strength-fill.strong { width: 100%; background: #22c55e; }
-    
-    .strength-text {
-        font-size: 0.75rem;
-        color: #64748b;
-        margin-top: 4px;
-    }
-    
-    .terms-check {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-    
-    .terms-check input {
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-        accent-color: #6366f1;
-        cursor: pointer;
-    }
-    
-    .terms-check label {
-        font-size: 0.875rem;
-        color: #64748b;
-        cursor: pointer;
-    }
-    
-    .terms-check label a {
-        color: #6366f1;
-        text-decoration: none;
-    }
-    
-    .terms-check label a:hover {
-        text-decoration: underline;
-    }
-    
-    .btn-block {
-        width: 100%;
-    }
-    
-    .auth-footer {
-        text-align: center;
-        margin-top: 24px;
-    }
-    
-    .auth-footer p {
-        color: #64748b;
-        font-size: 0.875rem;
-    }
-    
-    .auth-footer a {
-        color: #6366f1;
-        text-decoration: none;
-        font-weight: 500;
-    }
-    
-    .auth-footer a:hover {
-        text-decoration: underline;
-    }
-</style>
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
 {% endblock %}
 
 {% block content %}
 <div class="auth-page">
-    <div class="auth-container">
+    <!-- Animated Background Blobs -->
+    <div class="auth-bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="auth-container" style="max-width: 520px;">
         <div class="auth-card">
             <div class="auth-header">
                 <a href="{% url 'index' %}" class="auth-logo">
@@ -219,38 +24,38 @@
                     <span>LinguaAI</span>
                 </a>
                 <h1>Create Account</h1>
-                <p>Start your language learning journey today</p>
+                <p>Join thousands of learners worldwide</p>
             </div>
-            
-            <form method="POST" action="{% url 'register' %}">
+
+            <form method="POST" action="{% url 'register' %}" class="auth-form">
                 {% csrf_token %}
-                
+
                 <div class="form-row">
-                    <div class="form-group">
+                    <div class="form-floating">
+                        <input type="text" name="first_name" id="id_first_name" class="form-input" placeholder=" "
+                            required>
                         <label for="id_first_name">First Name</label>
-                        <input type="text" name="first_name" id="id_first_name" class="form-input" placeholder="John" required>
                     </div>
-                    
-                    <div class="form-group">
+                    <div class="form-floating">
+                        <input type="text" name="last_name" id="id_last_name" class="form-input" placeholder=" "
+                            required>
                         <label for="id_last_name">Last Name</label>
-                        <input type="text" name="last_name" id="id_last_name" class="form-input" placeholder="Doe" required>
                     </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="id_username">Username</label>
-                    <input type="text" name="username" id="id_username" class="form-input" placeholder="johndoe" required>
+
+                <div class="form-floating">
+                    <input type="text" name="username" id="id_username" class="form-input" placeholder=" " required>
+                    <label for="id_username">Choose Username</label>
                 </div>
-                
-                <div class="form-group">
+
+                <div class="form-floating">
+                    <input type="email" name="email" id="id_email" class="form-input" placeholder=" " required>
                     <label for="id_email">Email Address</label>
-                    <input type="email" name="email" id="id_email" class="form-input" placeholder="john@example.com" required>
                 </div>
-                
-                <div class="form-group">
-                    <label for="id_preferred_language">I want to learn</label>
+
+                <div class="form-floating">
                     <select name="preferred_language" id="id_preferred_language" class="form-input" required>
-                        <option value="">Select a language</option>
+                        <option value="" disabled selected>Select a language</option>
                         <option value="Spanish">🇪🇸 Spanish</option>
                         <option value="French">🇫🇷 French</option>
                         <option value="German">🇩🇪 German</option>
@@ -258,41 +63,42 @@
                         <option value="Chinese">🇨🇳 Chinese</option>
                         <option value="Italian">🇮🇹 Italian</option>
                         <option value="Portuguese">🇧🇷 Portuguese</option>
-                        <option value="Hindi">🇮🇳 Hindi</option>
-                        <option value="Korean">🇰🇷 Korean</option>
-                        <option value="Telugu">🇹🇷 Telugu</option>
                     </select>
+                    <label for="id_preferred_language">I want to learn</label>
                 </div>
-                
-                <div class="form-group">
-                    <label for="id_password1">Password</label>
-                    <input type="password" name="password1" id="id_password1" class="form-input" placeholder="Create a strong password" oninput="checkPasswordStrength(this.value)" required>
+
+                <div class="form-floating">
+                    <input type="password" name="password1" id="id_password1" class="form-input" placeholder=" "
+                        required oninput="checkPasswordStrength(this.value)">
+                    <label for="id_password1">Create Password</label>
                     <div class="password-strength">
                         <div class="strength-bar">
                             <div class="strength-fill" id="strengthFill"></div>
                         </div>
-                        <div class="strength-text" id="strengthText"></div>
+                        <span class="strength-text" id="strengthText">Use at least 8 characters</span>
                     </div>
                 </div>
-                
-                <div class="form-group">
+
+                <div class="form-floating" style="margin-top: 16px;">
+                    <input type="password" name="password2" id="id_password2" class="form-input" placeholder=" "
+                        required>
                     <label for="id_password2">Confirm Password</label>
-                    <input type="password" name="password2" id="id_password2" class="form-input" placeholder="Confirm your password" required>
                 </div>
-                
-                <div class="terms-check">
-                    <input type="checkbox" id="id_terms" required>
-                    <label for="id_terms">
-                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+
+                <div class="form-options">
+                    <label class="remember-me" style="align-items: flex-start;">
+                        <input type="checkbox" id="id_terms" required style="margin-top: 3px;">
+                        <span style="font-size: 0.8125rem;">I agree to the <a href="#">Terms of Service</a> and <a
+                                href="#">Privacy Policy</a></span>
                     </label>
                 </div>
-                
-                <button type="submit" class="btn btn-primary btn-block btn-lg">
+
+                <button type="submit" class="btn btn-primary btn-auth">
+                    <span>Create Account</span>
                     <i class="fas fa-user-plus"></i>
-                    Create Account
                 </button>
             </form>
-            
+
             <div class="auth-footer">
                 <p>Already have an account? <a href="{% url 'login' %}">Sign in</a></p>
             </div>
@@ -300,35 +106,58 @@
     </div>
 </div>
 
+{% block extra_js %}
 <script>
     function checkPasswordStrength(password) {
-        const strengthFill = document.getElementById('strengthFill');
-        const strengthText = document.getElementById('strengthText');
-        
+        const fill = document.getElementById('strengthFill');
+        const text = document.getElementById('strengthText');
+
         let strength = 0;
-        
         if (password.length >= 8) strength++;
         if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
         if (password.match(/[0-9]/)) strength++;
         if (password.match(/[^a-zA-Z0-9]/)) strength++;
-        
-        strengthFill.className = 'strength-fill';
-        
-        if (strength === 0) {
-            strengthText.textContent = '';
-        } else if (strength === 1) {
-            strengthFill.classList.add('weak');
-            strengthText.textContent = 'Weak password';
+
+        fill.className = 'strength-fill';
+
+        if (password.length === 0) {
+            fill.style.width = '0%';
+            text.textContent = 'Use at least 8 characters';
+            text.style.color = 'var(--text-muted)';
+        } else if (strength <= 1) {
+            fill.classList.add('weak');
+            fill.style.width = '25%';
+            text.textContent = 'Weak';
+            text.style.color = 'var(--error)';
         } else if (strength === 2) {
-            strengthFill.classList.add('fair');
-            strengthText.textContent = 'Fair password';
+            fill.classList.add('fair');
+            fill.style.width = '50%';
+            text.textContent = 'Fair';
+            text.style.color = 'var(--warning)';
         } else if (strength === 3) {
-            strengthFill.classList.add('good');
-            strengthText.textContent = 'Good password';
+            fill.classList.add('good');
+            fill.style.width = '75%';
+            text.textContent = 'Good';
+            text.style.color = 'var(--primary)';
         } else {
-            strengthFill.classList.add('strong');
-            strengthText.textContent = 'Strong password';
+            fill.classList.add('strong');
+            fill.style.width = '100%';
+            text.textContent = 'Strong';
+            text.style.color = 'var(--success)';
         }
     }
+
+    // Parallax effect
+    document.addEventListener('mousemove', (e) => {
+        const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+        const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+
+        const blobs = document.querySelectorAll('.blob');
+        blobs.forEach((blob, index) => {
+            const factor = (index + 1) * 0.5;
+            blob.style.transform = `translate(${moveX * factor}px, ${moveY * factor}px)`;
+        });
+    });
 </script>
+{% endblock %}
 {% endblock %}

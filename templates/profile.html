@@ -9,34 +9,34 @@
         padding: 100px 0 60px;
         min-height: 100vh;
     }
-    
+
     .profile-header {
         margin-bottom: 40px;
     }
-    
+
     .profile-header h1 {
         font-size: 2rem;
         font-weight: 700;
         margin-bottom: 8px;
     }
-    
+
     .profile-header p {
         color: #64748b;
     }
-    
+
     /* Profile Layout */
     .profile-layout {
         display: grid;
         grid-template-columns: 350px 1fr;
         gap: 24px;
     }
-    
+
     @media (max-width: 1024px) {
         .profile-layout {
             grid-template-columns: 1fr;
         }
     }
-    
+
     /* Profile Card */
     .profile-card {
         background: rgba(30, 41, 59, 0.6);
@@ -45,14 +45,14 @@
         padding: 32px;
         text-align: center;
     }
-    
+
     .profile-avatar {
         width: 120px;
         height: 120px;
         margin: 0 auto 20px;
         position: relative;
     }
-    
+
     .profile-avatar img {
         width: 100%;
         height: 100%;
@@ -60,7 +60,7 @@
         object-fit: cover;
         border: 4px solid #6366f1;
     }
-    
+
     .profile-avatar-placeholder {
         width: 100%;
         height: 100%;
@@ -72,7 +72,7 @@
         font-size: 3rem;
         color: white;
     }
-    
+
     .avatar-edit-btn {
         position: absolute;
         bottom: 0;
@@ -88,19 +88,19 @@
         color: white;
         cursor: pointer;
     }
-    
+
     .profile-name {
         font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 4px;
     }
-    
+
     .profile-email {
         font-size: 0.875rem;
         color: #64748b;
         margin-bottom: 20px;
     }
-    
+
     .profile-level {
         display: inline-flex;
         align-items: center;
@@ -110,7 +110,7 @@
         border-radius: 50px;
         margin-bottom: 24px;
     }
-    
+
     .level-badge {
         width: 40px;
         height: 40px;
@@ -121,24 +121,24 @@
         justify-content: center;
         font-weight: 700;
     }
-    
+
     .level-info {
         text-align: left;
     }
-    
+
     .level-info span {
         display: block;
     }
-    
+
     .level-info .level-name {
         font-weight: 600;
     }
-    
+
     .level-info .level-xp {
         font-size: 0.875rem;
         color: #64748b;
     }
-    
+
     /* Stats Grid */
     .profile-stats {
         display: grid;
@@ -146,41 +146,41 @@
         gap: 16px;
         margin-bottom: 24px;
     }
-    
+
     .profile-stat {
         padding: 16px;
         background: rgba(15, 23, 42, 0.4);
         border-radius: 12px;
     }
-    
+
     .profile-stat h3 {
         font-size: 1.5rem;
         font-weight: 700;
         margin-bottom: 4px;
     }
-    
+
     .profile-stat span {
         font-size: 0.875rem;
         color: #64748b;
     }
-    
+
     /* Achievements Section */
     .achievements-section {
         margin-top: 24px;
     }
-    
+
     .achievements-section h4 {
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 16px;
     }
-    
+
     .achievements-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
     }
-    
+
     .achievement-badge {
         aspect-ratio: 1;
         background: rgba(15, 23, 42, 0.4);
@@ -193,28 +193,33 @@
         text-align: center;
         padding: 12px;
     }
-    
+
     .achievement-badge.earned {
         border-color: rgba(234, 179, 8, 0.3);
     }
-    
+
     .achievement-badge.locked {
         opacity: 0.4;
     }
-    
+
     .achievement-badge i {
         font-size: 1.5rem;
         margin-bottom: 8px;
     }
-    
-    .achievement-badge.earned i { color: #eab308; }
-    .achievement-badge.locked i { color: #64748b; }
-    
+
+    .achievement-badge.earned i {
+        color: #eab308;
+    }
+
+    .achievement-badge.locked i {
+        color: #64748b;
+    }
+
     .achievement-badge span {
         font-size: 0.625rem;
         color: #64748b;
     }
-    
+
     /* Settings Card */
     .settings-card {
         background: rgba(30, 41, 59, 0.6);
@@ -222,15 +227,15 @@
         border-radius: 24px;
         padding: 32px;
     }
-    
+
     .settings-section {
         margin-bottom: 32px;
     }
-    
+
     .settings-section:last-child {
         margin-bottom: 0;
     }
-    
+
     .settings-section h3 {
         font-size: 1.125rem;
         font-weight: 600;
@@ -238,11 +243,11 @@
         padding-bottom: 12px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    
+
     .form-group {
         margin-bottom: 20px;
     }
-    
+
     .form-group label {
         display: block;
         font-size: 0.875rem;
@@ -250,7 +255,7 @@
         color: #94a3b8;
         margin-bottom: 8px;
     }
-    
+
     .form-input {
         width: 100%;
         padding: 14px 16px;
@@ -261,35 +266,35 @@
         font-size: 1rem;
         transition: all 0.3s ease;
     }
-    
+
     .form-input:focus {
         outline: none;
         border-color: #6366f1;
         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
-    
+
     .form-input::placeholder {
         color: #475569;
     }
-    
+
     select.form-input {
         cursor: pointer;
     }
-    
+
     select.form-input option {
         background: #1e293b;
         color: #f8fafc;
     }
-    
+
     textarea.form-input {
         resize: vertical;
         min-height: 100px;
     }
-    
+
     .btn-save {
         padding: 12px 32px;
     }
-    
+
     /* Danger Zone */
     .danger-zone {
         padding: 20px;
@@ -297,20 +302,20 @@
         border: 1px solid rgba(239, 68, 68, 0.3);
         border-radius: 12px;
     }
-    
+
     .danger-zone h4 {
         color: #ef4444;
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 8px;
     }
-    
+
     .danger-zone p {
         font-size: 0.875rem;
         color: #94a3b8;
         margin-bottom: 16px;
     }
-    
+
     .btn-danger {
         background: transparent;
         border: 1px solid #ef4444;
@@ -321,7 +326,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
     }
-    
+
     .btn-danger:hover {
         background: #ef4444;
         color: white;
@@ -337,7 +342,7 @@
             <h1>👤 My Profile</h1>
             <p>Manage your account settings and track your progress</p>
         </div>
-        
+
         <div class="profile-layout">
             <!-- Profile Card -->
             <div class="profile-card">
@@ -353,10 +358,10 @@
                         <i class="fas fa-camera"></i>
                     </button>
                 </div>
-                
+
                 <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
                 <p class="profile-email">{{ user.email }}</p>
-                
+
                 <div class="profile-level">
                     <div class="level-badge">{{ profile.level }}</div>
                     <div class="level-info">
@@ -364,7 +369,7 @@
                         <span class="level-xp">{{ profile.total_xp }} XP</span>
                     </div>
                 </div>
-                
+
                 <div class="profile-stats">
                     <div class="profile-stat">
                         <h3>{{ completed_lessons }}</h3>
@@ -383,79 +388,92 @@
                         <span>Achievements</span>
                     </div>
                 </div>
-                
+
                 <div class="achievements-section">
                     <h4>🏆 Achievements</h4>
                     <div class="achievements-grid">
                         {% for achievement in all_achievements %}
-                        <div class="achievement-badge {% if achievement.id in earned_ids %}earned{% else %}locked{% endif %}" title="{{ achievement.name }}: {{ achievement.description }}">
-                            <i class="fas fa-{% if achievement.icon %}{{ achievement.icon }}{% else %}trophy{% endif %}"></i>
+                        <div class="achievement-badge {% if achievement.id in earned_ids %}earned{% else %}locked{% endif %}"
+                            title="{{ achievement.name }}: {{ achievement.description }}">
+                            <i
+                                class="fas fa-{% if achievement.icon %}{{ achievement.icon }}{% else %}trophy{% endif %}"></i>
                             <span>{{ achievement.name }}</span>
                         </div>
                         {% endfor %}
                     </div>
                 </div>
             </div>
-            
+
             <!-- Settings -->
             <div class="settings-card">
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    
+
                     <div class="settings-section">
                         <h3>Personal Information</h3>
-                        
+
                         <div class="form-group">
                             <label for="id_first_name">First Name</label>
-                            <input type="text" name="first_name" id="id_first_name" class="form-input" value="{{ user.first_name }}" required>
+                            <input type="text" name="first_name" id="id_first_name" class="form-input"
+                                value="{{ user.first_name }}" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="id_last_name">Last Name</label>
-                            <input type="text" name="last_name" id="id_last_name" class="form-input" value="{{ user.last_name }}" required>
+                            <input type="text" name="last_name" id="id_last_name" class="form-input"
+                                value="{{ user.last_name }}" required>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="id_email">Email Address</label>
-                            <input type="email" name="email" id="id_email" class="form-input" value="{{ user.email }}" required>
+                            <input type="email" name="email" id="id_email" class="form-input" value="{{ user.email }}"
+                                required>
                         </div>
                     </div>
-                    
+
                     <div class="settings-section">
                         <h3>Learning Preferences</h3>
-                        
+
                         <div class="form-group">
                             <label for="id_preferred_language">Preferred Language</label>
                             <select name="preferred_language" id="id_preferred_language" class="form-input">
-                                <option value="Spanish" {% if profile.preferred_language == 'Spanish' %}selected{% endif %}>🇪🇸 Spanish</option>
-                                <option value="French" {% if profile.preferred_language == 'French' %}selected{% endif %}>🇫🇷 French</option>
-                                <option value="German" {% if profile.preferred_language == 'German' %}selected{% endif %}>🇩🇪 German</option>
-                                <option value="Japanese" {% if profile.preferred_language == 'Japanese' %}selected{% endif %}>🇯🇵 Japanese</option>
-                                <option value="Chinese" {% if profile.preferred_language == 'Chinese' %}selected{% endif %}>🇨🇳 Chinese</option>
-                                <option value="Italian" {% if profile.preferred_language == 'Italian' %}selected{% endif %}>🇮🇹 Italian</option>
-                                <option value="Portuguese" {% if profile.preferred_language == 'Portuguese' %}selected{% endif %}>🇧🇷 Portuguese</option>
+                                <option value="Spanish" {% if profile.preferred_language=='Spanish' %}selected{% endif
+                                    %}>🇪🇸 Spanish</option>
+                                <option value="French" {% if profile.preferred_language=='French' %}selected{% endif %}>
+                                    🇫🇷 French</option>
+                                <option value="German" {% if profile.preferred_language=='German' %}selected{% endif %}>
+                                    🇩🇪 German</option>
+                                <option value="Japanese" {% if profile.preferred_language=='Japanese' %}selected{% endif
+                                    %}>🇯🇵 Japanese</option>
+                                <option value="Chinese" {% if profile.preferred_language=='Chinese' %}selected{% endif
+                                    %}>🇨🇳 Chinese</option>
+                                <option value="Italian" {% if profile.preferred_language=='Italian' %}selected{% endif
+                                    %}>🇮🇹 Italian</option>
+                                <option value="Portuguese" {% if profile.preferred_language=='Portuguese' %}selected{%
+                                    endif %}>🇧🇷 Portuguese</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="id_bio">Bio</label>
-                            <textarea name="bio" id="id_bio" class="form-input" placeholder="Tell us about yourself...">{{ profile.bio }}</textarea>
+                            <textarea name="bio" id="id_bio" class="form-input"
+                                placeholder="Tell us about yourself...">{{ profile.bio }}</textarea>
                         </div>
                     </div>
-                    
+
                     <div class="settings-section">
                         <button type="submit" class="btn btn-primary btn-save">
                             <i class="fas fa-save"></i> Save Changes
                         </button>
                     </div>
-                    
+
                     <div class="settings-section">
                         <h3>Account Security</h3>
                         <a href="#" class="btn btn-outline">
                             <i class="fas fa-key"></i> Change Password
                         </a>
                     </div>
-                    
+
                     <div class="settings-section">
                         <h3>Danger Zone</h3>
                         <div class="danger-zone">

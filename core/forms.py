@@ -35,6 +35,9 @@ class RegisterForm(UserCreationForm):
             ('Chinese', 'Chinese'),
             ('Italian', 'Italian'),
             ('Portuguese', 'Portuguese'),
+            ('Hindi', 'Hindi'),
+            ('korean', 'Korean'),
+            ('Telugu', 'Telugu'),
         ],
         widget=forms.Select(attrs={
             'class': 'form-input'

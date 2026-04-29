@@ -21,7 +21,6 @@
     
     {% block extra_css %}{% endblock %}
 </head>
-<body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -37,13 +36,13 @@
             <div class="nav-menu" id="navMenu">
                 <ul class="nav-links">
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'dashboard' %}" class="nav-link">
+                        <li><a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
                             <i class="fas fa-home"></i> Dashboard
                         </a></li>
-                        <li><a href="{% url 'lessons' %}" class="nav-link">
+                        <li><a href="{% url 'lessons' %}" class="nav-link {% if request.resolver_match.url_name == 'lessons' %}active{% endif %}">
                             <i class="fas fa-book"></i> Lessons
                         </a></li>
-                        <li><a href="{% url 'practice' %}" class="nav-link">
+                        <li><a href="{% url 'practice' %}" class="nav-link {% if request.resolver_match.url_name == 'practice' %}active{% endif %}">
                             <i class="fas fa-comments"></i> Practice
                         </a></li>
                     {% else %}
@@ -101,72 +100,55 @@
     </div>
     {% endif %}
 
-    <!-- Main Content -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+    {% block content %}{% endblock %}
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="{% url 'index' %}" class="footer-logo">
-                        <i class="fas fa-language"></i>
-                        <span>LinguaAI</span>
-                    </a>
-                    <p>AI-powered language learning platform for the modern learner.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
-                        <li><a href="{% url 'lessons' %}">Lessons</a></li>
-                        <li><a href="{% url 'practice' %}">Practice</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Languages</h4>
-                    <ul>
-                        <li><a href="#">Spanish</a></li>
-                        <li><a href="#">French</a></li>
-                        <li><a href="#">German</a></li>
-                        <li><a href="#">Japanese</a></li>
-                        <li><a href="#">Chinese</a></li>
-                        <li><a href="#">Hindi</a></li>
-                        <li><a href="#">Korean</a></li>
-                        <li><a href="#">Telugu</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-links">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2024 LinguaAI. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="{% static 'js/main.js' %}"></script>
     {% block extra_js %}{% endblock %}
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 20) {
+                navbar.style.height = '70px';
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                navbar.style.height = '80px';
+                navbar.style.background = 'rgba(15, 23, 42, 0.8)';
+            }
+        });
+
+        // Mobile toggle
+        const navToggle = document.getElementById('navToggle');
+        const navMenu = document.getElementById('navMenu');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('show');
+                navToggle.querySelector('i').classList.toggle('fa-bars');
+                navToggle.querySelector('i').classList.toggle('fa-times');
+            });
+        }
+
+        // User dropdown
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const userDropdown = document.getElementById('userDropdown');
+        if (userMenuBtn && userDropdown) {
+            userMenuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                userDropdown.classList.toggle('show');
+            });
+
+            document.addEventListener('click', () => {
+                userDropdown.classList.remove('show');
+            });
+        }
+
+        // Close alerts
+        const alertCloseBtns = document.querySelectorAll('.alert-close');
+        alertCloseBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.alert').style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>
